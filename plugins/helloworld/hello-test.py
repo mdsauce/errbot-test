@@ -1,7 +1,5 @@
 from errbot import BotPlugin, botcmd
 
-memory = "nothing"
-
 
 class HelloWorld(BotPlugin):
     """Example 'Hello, world!' plugin for Errbot"""
@@ -11,12 +9,11 @@ class HelloWorld(BotPlugin):
         """Say hello to the world"""
         return "Hello, world!"
     @botcmd
-    def getter(self, msg, args):
+    def get(self, msg, args):
         """Remember something and then tell me about it"""
-        return "I remember %s" % memory
+        return "I remember:\n %s" % self['memory']
     @botcmd
-    def setter(self, msg, args):
-        global memory
-        memory = args
+    def set(self, msg, args):
         """Store something for later"""
-        return "I remember:\n %s" % memory
+        self['memory'] = args
+        return "I just SET:\n %s" % self['memory']
